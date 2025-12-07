@@ -1,60 +1,58 @@
-"use client"
+"use client";
 
 import Image from "next/image";
 import styles from "./page.module.css";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { fetchChars, searchCharsByName } from "@/lib/marvelApi";
+import { useSearchParams } from "next/navigation";
+import { useFavorites } from "@/context/FavoritesContext";
+import { Char } from "@/lib/types";
 
-export default function Home() {
+export default function HomePage() {
+  const searchParams = useSearchParams();
+  const favoritesMode = searchParams.has("favorites");
+  const { favorites } = useFavorites();
+
+  const [chars, setChars] = useState<Char[]>([]);
+  const [query, setQuery] = useState("");
+
   useEffect(() => {
-    console.log(searchCharsByName("Spider"));
-  }, []);
+    if (favoritesMode) {
+      // If ?favorites -> show only favorites
+      setChars(favorites);
+      return;
+    }
+
+    // If we have search query -> filter by name
+    if (query.trim() !== "") {
+      searchCharsByName(query).then(setChars);
+      return;
+    }
+
+    // Otherwise -> load first 50 Marvel Chars
+    fetchChars().then(setChars);
+  }, [query, favoritesMode, favorites]);
+
   return (
-    <div className={styles.page}>
-      <main className={styles.main}>
-        <Image className={styles.logo} src="/next.svg" alt="Next.js logo" width={100} height={20} priority />
-        <div className={styles.intro}>
-          <h1>To get started, edit the page.tsx file.</h1>
-          <p>
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
+    <div>
+      {/* Search Bar */}{" "}
+      {!favoritesMode && (
+        <input
+          type="text"
+          placeholder="Search a Character..."
+          value={query}
+          onChange={(e) => setQuery(e.target.value)}
+        />
+      )}
+
+      <p className={""}>{chars.length} results</p>
+
+      {chars.map((char) => (
+        <div key={char.id}>
+          <Image src={char.images.lg} alt={char.name} width={140} height={220} />
+          <h3>{char.name}</h3>
         </div>
-        <div className={styles.ctas}>
-          <a
-            className={styles.primary}
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image className={styles.logo} src="/vercel.svg" alt="Vercel logomark" width={16} height={16} />
-            Deploy Now
-          </a>
-          <a
-            className={styles.secondary}
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div>
-      </main>
+      ))}
     </div>
   );
 }

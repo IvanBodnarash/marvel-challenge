@@ -23,3 +23,14 @@ a {
   color: inherit;
   text-decoration: none;
 }
+
+main {
+  padding: 0.8rem 2.5rem;
+}
+
+/* Mobile Styles */
+@media (max-width: 480px) {
+  main {
+    padding: 0.8rem;
+  }
+}
