@@ -2,39 +2,45 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 1rem 1.5rem;
+  padding: 0.8rem 2.5rem;
   border-bottom: 1px solid #222;
   background: #000;
   color: #fff;
 }
 
 .logo {
-  font-weight: 700;
-  font-size: 1.25rem;
-  letter-spacing: 0.15em;
-  border: none;
-  background: transparent;
-  color: #fff;
-  cursor: pointer;
+  height: 52px;
+  width: auto;
 }
 
 .favoritesBlock {
   display: flex;
   align-items: center;
-  gap: 0.35rem;
-  padding: 0.25rem 0.6rem;
-  cursor: pointer;
+  gap: 0.4rem;
 }
 
 .favoritesButton {
-  color: red;
-  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-.favoritesBlock:hover {
-  cursor: pointer;
+.favIcon {
+  height: 24px;
+  width: 24px;
+  object-fit: contain;
 }
 
-.active {
-  border-color: white;
+.badge {
+  font-size: 16px;
+  line-height: 1;
+  display: flex;
+  align-items: center;
+}
+
+/* Mobile Styles */
+@media (max-width: 480px) {
+  .navbar {
+    padding: 0.8rem;
+  }
 }
