@@ -1,0 +1,87 @@
+.card {
+  background: #000;
+  overflow: hidden;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  clip-path: polygon(100% 0, 100% 95%, 93% 100%, 0 100%, 0 0);
+  will-change: transform;
+}
+
+.card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 4px rgba(0, 0, 0, 0.6);
+}
+
+.link {
+  display: block;
+  text-decoration: none;
+  color: inherit;
+}
+
+.imageWrapper {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 3 / 4;
+  /* background: #000; */
+}
+
+.image {
+  object-fit: cover;
+}
+
+.info {
+  position: relative;
+  border-top: 6px solid #e62429;
+  height: 74px;
+  overflow: hidden;
+}
+
+.infoOverlay {
+  border: none;
+  position: absolute;
+  inset: 0;
+  background: #e62429;
+  transform-origin: top;
+  transform: scaleY(0);
+  transition: transform 0.25s ease;
+}
+
+.card:hover .infoOverlay {
+  transform: scaleY(1);
+}
+
+.infoContent {
+  position: relative;
+  z-index: 1;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 0.9rem;
+}
+
+.name {
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  /* letter-spacing: 0.06em; */
+  color: #ffffff;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.favButton {
+  border: none;
+  background: transparent;
+  padding: 0;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.heartIcon {
+  width: 18px;
+  height: 18px;
+  object-fit: contain;
+}

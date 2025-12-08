@@ -2,57 +2,78 @@
 
 import Image from "next/image";
 import styles from "./page.module.css";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { fetchChars, searchCharsByName } from "@/lib/marvelApi";
 import { useSearchParams } from "next/navigation";
 import { useFavorites } from "@/context/FavoritesContext";
 import { Char } from "@/lib/types";
+import { SearchBar } from "@/components/ui/SearchBar";
+import CharacterCard from "@/components/characters/CharacterCard";
 
 export default function HomePage() {
   const searchParams = useSearchParams();
   const favoritesMode = searchParams.has("favorites");
+
   const { favorites } = useFavorites();
 
-  const [chars, setChars] = useState<Char[]>([]);
-  const [query, setQuery] = useState("");
+  const [allChars, setAllChars] = useState<Char[]>([]);
+  const [search, setSearch] = useState("");
+  const [loading, setLoading] = useState(true);
 
+  // Load 50 Marvel characters (only when NOT in favorites mode)
   useEffect(() => {
     if (favoritesMode) {
-      // If ?favorites -> show only favorites
-      setChars(favorites);
+      setLoading(false);
       return;
     }
 
-    // If we have search query -> filter by name
-    if (query.trim() !== "") {
-      searchCharsByName(query).then(setChars);
-      return;
+    async function load() {
+      setLoading(true);
+      const chars = await fetchChars(50);
+      setAllChars(chars);
+      setLoading(false);
     }
 
-    // Otherwise -> load first 50 Marvel Chars
-    fetchChars().then(setChars);
-  }, [query, favoritesMode, favorites]);
+    load();
+  }, [favoritesMode]);
+
+  /**
+   * Main logic
+   * - if favoritesMode -> filter favorites
+   * - else -> filter allChars
+   */
+  const charsToRender = useMemo(() => {
+    const query = search.toLowerCase().trim();
+
+    if (favoritesMode) {
+      if (!query) return favorites;
+      return favorites.filter((char) => char.name.toLowerCase().includes(query));
+    }
+
+    if (!query) return allChars;
+    return allChars.filter((char) => char.name.toLowerCase().includes(query));
+  }, [favoritesMode, favorites, allChars, search]);
+
+  const showEmpty = !loading && charsToRender.length === 0;
 
   return (
-    <div>
-      {/* Search Bar */}{" "}
-      {!favoritesMode && (
-        <input
-          type="text"
-          placeholder="Search a Character..."
-          value={query}
-          onChange={(e) => setQuery(e.target.value)}
-        />
+    <div className={styles.main}>
+      {favoritesMode && <h1 className={styles.favTitle}>FAVORITES</h1>}
+      {/* Search Bar */}
+      <SearchBar value={search} onChange={setSearch} resultsCount={charsToRender.length} />
+
+      {/* States */}
+      {loading && <p className={styles.statusText}>Loading...</p>}
+
+      {showEmpty && <p className={styles.statusText}>No characters found.</p>}
+
+      {!loading && charsToRender.length > 0 && (
+        <section className={styles.grid}>
+          {charsToRender.map((char) => (
+            <CharacterCard key={char.id} char={char} />
+          ))}
+        </section>
       )}
-
-      <p className={""}>{chars.length} results</p>
-
-      {chars.map((char) => (
-        <div key={char.id}>
-          <Image src={char.images.lg} alt={char.name} width={140} height={220} />
-          <h3>{char.name}</h3>
-        </div>
-      ))}
     </div>
   );
 }
