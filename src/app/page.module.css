@@ -1,0 +1,33 @@
+.main {
+  color: #fff;
+  min-height: calc(100vh - 72px);
+}
+
+/* Grid with cards */
+.grid {
+  margin-top: 2.5rem;
+  display: grid;
+  gap: 1rem;
+
+  /* Mobile */
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.favTitle {
+  margin-top: 35px;
+  color: black;
+}
+
+/* Tablet */
+@media (min-width: 768px) {
+  .grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}
+
+/* Desktop */
+@media (min-width: 1200px) {
+  .grid {
+    grid-template-columns: repeat(7, minmax(0, 1fr));
+  }
+}
