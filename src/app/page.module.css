@@ -1,5 +1,6 @@
 .main {
   color: #fff;
+  padding: 0.8rem 2.5rem;
   min-height: calc(100vh - 72px);
 }
 
@@ -16,6 +17,13 @@
 .favTitle {
   margin-top: 35px;
   color: black;
+}
+
+/* Mobile */
+@media (max-width: 480px) {
+  .main {
+    padding: 0.8rem;
+  }
 }
 
 /* Tablet */
