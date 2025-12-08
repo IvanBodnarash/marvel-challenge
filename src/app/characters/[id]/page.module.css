@@ -1,0 +1,123 @@
+.mainDiv {
+  background: #ffffff;
+  color: #000000;
+  min-height: calc(100vh - 72px);
+}
+
+/* Hero */
+.hero {
+  background: #000000;
+  color: #ffffff;
+  padding: 0.05rem 2.5rem;
+  clip-path: polygon(100% 0, 100% 93%, 98% 100%, 0 100%, 0 0);
+}
+
+.heroInner {
+  max-width: 900px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+  gap: 2rem;
+}
+
+.extraInfo {
+  margin-top: 1rem;
+  display: grid;
+  gap: 0.4rem;
+  color: #ddd;
+  font-size: 0.9rem;
+  line-height: 1.35;
+  max-width: 520px;
+}
+
+.extraInfo span {
+  color: #fff;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-right: 0.25rem;
+}
+
+/* Image */
+.heroImageWrapper {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  background: #111;
+  overflow: hidden;
+}
+
+.heroImage {
+  object-fit: cover;
+}
+
+/* Right content */
+.titleRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.heroContent {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.heroTitle {
+  font-size: 3rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1rem;
+}
+
+.heroDescription {
+  margin: 0;
+  max-width: 520px;
+  line-height: 1.5;
+  font-size: 0.95rem;
+}
+
+/* Heart icon */
+.favButton {
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  padding: 0.2rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.favIcon {
+  width: 26px;
+  height: 26px;
+  object-fit: contain;
+}
+
+.statusText {
+  padding: 3rem 2.5rem;
+  text-align: center;
+  color: #555;
+}
+
+/* Mobile, Tablet */
+@media (max-width: 900px) {
+  .hero {
+    padding: 0.05rem 0;
+    clip-path: polygon(100% 0, 100% 96%, 95% 100%, 0 100%, 0 0);
+  }
+
+  .heroContent {
+    padding: 0.2rem 1rem 3rem;
+  }
+
+  .heroInner {
+    grid-template-columns: 1fr;
+  }
+
+  .heroTitle {
+    font-size: 2rem;
+  }
+}
