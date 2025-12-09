@@ -91,7 +91,7 @@ Open: `http://localhost:3000`
 
 The project is deployed on **Vercel**, using Next.js' optimized production build.
 
-**Live Demo:**
+**Live Demo:** [marvel-challenge-six.vercel.app](https://marvel-challenge-six.vercel.app)
 
 ## Notes
 
