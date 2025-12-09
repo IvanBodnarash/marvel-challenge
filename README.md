@@ -1,36 +1,100 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Marvel Characters Browser
 
-## Getting Started
+Frontend Developer Challenge – Bemobile
 
-First, run the development server:
+This project is a small web application that allows users to browse, search and mark Marvel characters as favorites.  
+It includes a character list view and a detailed character view, following the UI requirements specified in the challenge.
+
+## Features
+
+### Characters List (Home)
+
+- Displays the first 50 Marvel characters.
+
+- Search bar that filters characters by name in real time.
+
+- Favorites filter (`?favorites`) that shows only marked characters.
+
+- Favorites counter in the navigation bar (persisted across pages).
+
+### Character Detail Page
+
+- Large hero section with broken-edge style (from Figma).
+
+- Character image, name, description, and additional info.
+
+- Favorite button synchronized with global favorites state.
+
+- Smooth page transition animation (fade + slide).
+
+- Red loading bar displayed under the header during data loading.
+
+## Tech Stack
+
+- **Next.js 16 (App Router)**
+
+- **TypeScript**
+
+- **React Context API** (Favorites management)
+
+- **CSS Modules**
+
+- **SuperHero API** (open-source alternative, as the official Marvel API is no longer accessible)
+
+## Project Structure
+
+```bash
+src/
+ ├── app/
+ │    ├── page.tsx                # Characters list
+ │    ├── characters/[id]/        # Character detail page
+ │    └── layout.tsx              # Root layout + Navbar
+ │
+ ├── components/
+ │    ├── layout/Navbar.tsx
+ │    ├── ui/SearchBar.tsx
+ │    ├── ui/LoadingBar.tsx
+ │    └── CharacterCard/
+ │         ├── CharacterCard.tsx
+ │         └── CharacterCard.module.css
+ │
+ ├── context/
+ │    └── FavoritesContext.tsx    # Global favorites state
+ │
+ ├── lib/
+ │    ├── marvelApi.ts            # API helpers
+ │    └── types.ts                # Character type definitions
+ │
+ └── styles/
+      └── globals.css
+```
+
+## Installation & Setup
+
+```bash
+git clone https://github.com/your-username/marvel-challenge.git
+cd marvel-challenge
+npm install
+```
+
+## Development Mode
+
+Starts the project with non-minified assets and hot reload.
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open: `http://localhost:3000`
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Deployment
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+The project is deployed on **Vercel**, using Next.js' optimized production build.
 
-## Learn More
+**Live Demo:**
 
-To learn more about Next.js, take a look at the following resources:
+## Notes
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- The official Marvel API (http://gateway.marvel.com/v1/) returns errors. Therefore, this challenge uses the open SuperHero API (https://akabab.github.io/superhero-api/api/all.json) and filters characters by publisher === "Marvel Comics".
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- Comics section on the detail page has been omitted because the alternative API does not provide comic data.
