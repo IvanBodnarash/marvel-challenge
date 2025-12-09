@@ -1,7 +1,20 @@
 .mainDiv {
+  opacity: 0;
+  animation: fadeInUp 0.5s ease forwards;
   background: #ffffff;
   color: #000000;
   min-height: calc(100vh - 72px);
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(-12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 /* Hero */

@@ -10,6 +10,7 @@ import styles from "./page.module.css";
 
 import heartInit from "../../../../public/heart_icon_init.png";
 import heartActive from "../../../../public/heart_icon_active.png";
+import { LoadingBar } from "@/components/ui/LoadingBar";
 
 export default function CharacterDetailPage() {
   const params = useParams();
@@ -42,9 +43,10 @@ export default function CharacterDetailPage() {
 
   if (loading) {
     return (
-      <div className={styles.mainDiv}>
-        <p className={styles.statusText}>Loading character...</p>
-      </div>
+      <>
+        <LoadingBar />
+        {/* <p className={styles.statusText}>Loading character...</p> */}
+      </>
     );
   }
 

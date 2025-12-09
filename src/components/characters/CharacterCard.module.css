@@ -1,10 +1,23 @@
 .card {
+  opacity: 0;
+  animation: fadeInUp 0.5s ease forwards;
   background: #000;
   overflow: hidden;
   cursor: pointer;
   transition: transform 0.2s ease, box-shadow 0.2s ease;
   clip-path: polygon(100% 0, 100% 95%, 93% 100%, 0 100%, 0 0);
   will-change: transform;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .card:hover {
@@ -26,6 +39,8 @@
 }
 
 .image {
+  opacity: 0;
+  animation: fadeInUp 1s ease forwards;
   object-fit: cover;
 }
 
